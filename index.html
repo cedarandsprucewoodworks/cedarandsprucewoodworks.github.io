@@ -79,6 +79,8 @@
       letter-spacing: 0.12em;
       text-transform: uppercase;
       transition: transform 0.22s ease, box-shadow 0.22s ease;
+      cursor: pointer;
+      border: none;
     }
     .btn-primary {
       background: #2d5a27;
@@ -125,9 +127,80 @@
       color: #7a624f;
     }
     footer a { text-decoration: underline; }
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+    .modal-content {
+      background-color: #ffffff;
+      margin: 10% auto;
+      padding: 30px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.3);
+    }
+    .modal h2 {
+      font-family: 'Playfair Display', serif;
+      color: #2e1f0f;
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+    }
+    .modal input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 2px solid #d4d4d4;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-family: 'Lato', sans-serif;
+    }
+    .modal input:focus {
+      outline: none;
+      border-color: #2d5a27;
+    }
+    .modal-buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+    }
+    .modal button {
+      padding: 10px 20px;
+      border-radius: 6px;
+      border: none;
+      font-weight: 700;
+      cursor: pointer;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      transition: transform 0.22s ease;
+    }
+    .modal button:hover {
+      transform: translateY(-2px);
+    }
+    .btn-submit {
+      background: #2d5a27;
+      color: #ffffff;
+    }
+    .btn-cancel {
+      background: #e0e0e0;
+      color: #2e1f0f;
+    }
+    .error-message {
+      color: #d32f2f;
+      margin-bottom: 15px;
+      font-size: 0.9rem;
+      display: none;
+    }
     @media (max-width: 660px) {
       .hero-inner { padding: 48px 20px; }
       .buttons { flex-direction: column; }
+      .modal-content { width: 85%; }
     }
   </style>
 </head>
@@ -138,9 +211,61 @@
       <h1>Currently refreshing our website for a better shop experience.</h1>
       <span class="eyebrow">Thanks for your patience!</span>
       <div class="buttons">
-        <a href="full-site.html" class="btn btn-primary">View Full Site</a>
+        <button onclick="openPasswordModal()" class="btn btn-primary">View Full Site</button>
       </div>
     </div>
   </main>
+
+  <div id="passwordModal" class="modal">
+    <div class="modal-content">
+      <h2>Access Full Site</h2>
+      <div class="error-message" id="errorMessage">Incorrect password. Please try again.</div>
+      <input type="password" id="passwordInput" placeholder="Enter password" onkeypress="handleEnter(event)" />
+      <div class="modal-buttons">
+        <button class="btn-cancel" onclick="closePasswordModal()">Cancel</button>
+        <button class="btn-submit" onclick="checkPassword()">Submit</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openPasswordModal() {
+      document.getElementById('passwordModal').style.display = 'block';
+      document.getElementById('passwordInput').focus();
+      document.getElementById('errorMessage').style.display = 'none';
+    }
+
+    function closePasswordModal() {
+      document.getElementById('passwordModal').style.display = 'none';
+      document.getElementById('passwordInput').value = '';
+      document.getElementById('errorMessage').style.display = 'none';
+    }
+
+    function checkPassword() {
+      const password = document.getElementById('passwordInput').value;
+      const correctPassword = 'Cedar';
+      
+      if (password === correctPassword) {
+        window.location.href = 'full-site.html';
+      } else {
+        document.getElementById('errorMessage').style.display = 'block';
+        document.getElementById('passwordInput').value = '';
+        document.getElementById('passwordInput').focus();
+      }
+    }
+
+    function handleEnter(event) {
+      if (event.key === 'Enter') {
+        checkPassword();
+      }
+    }
+
+    window.onclick = function(event) {
+      const modal = document.getElementById('passwordModal');
+      if (event.target === modal) {
+        closePasswordModal();
+      }
+    }
+  </script>
 </body>
 </html>
