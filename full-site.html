@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cedar & Spruce | Handcrafted Cedar Planter Boxes & Raised Garden Beds</title>
+  <meta name="description" content="Rustic, handcrafted cedar planter boxes, window boxes, and raised garden beds. Natural, chemical-free, built to last 10–15 years. Webster, NY." />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── Reset & Base ──────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Lato', sans-serif; background: #faf7f2; color: #2e1f0f; line-height: 1.7; }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── Colour Tokens ─────────────────────────────────────── */
+    :root {
+      --green-dark:   #2d5a27;
+      --green-mid:    #3e7a36;
+      --green-light:  #d4e8cf;
+      --cream:        #faf7f2;
+      --tan:          #ede3cf;
+      --brown-dark:   #2e1f0f;
+      --brown-mid:    #6b4226;
+      --brown-light:  #c4956a;
+      --cedar:        #b5651d;
+      --white:        #ffffff;
+    }
+
+    /* ── Utility ───────────────────────────────────────────── */
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+    .section-label {
+      display: inline-block;
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--green-dark); margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.9rem, 3.8vw, 2.8rem);
+      font-weight: 700; color: var(--brown-dark);
+      line-height: 1.2; margin-bottom: 18px;
+    }
+    .section-sub {
+      font-size: 1.03rem; color: var(--brown-mid); max-width: 560px;
+    }
+    .btn {
+      display: inline-block; padding: 14px 36px; border-radius: 4px;
+      font-family: 'Lato', sans-serif; font-size: 0.82rem;
+      font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      cursor: pointer; border: 2px solid transparent; transition: all 0.25s ease;
+    }
+    .btn-primary { background: var(--green-dark); color: var(--white); border-color: var(--green-dark); }
+    .btn-primary:hover { background: var(--green-mid); border-color: var(--green-mid); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(45,90,39,0.3); }
+    .btn-outline-white { background: transparent; color: var(--white); border-color: var(--white); }
+    .btn-outline-white:hover { background: var(--white); color: var(--brown-dark); transform: translateY(-2px); }
+    .btn-outline-green { background: transparent; color: var(--green-dark); border-color: var(--green-dark); }
+    .btn-outline-green:hover { background: var(--green-dark); color: var(--white); transform: translateY(-2px); }
+    .tag {
+      display: inline-block; padding: 5px 14px;
+      background: var(--green-light); color: var(--green-dark);
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; border-radius: 50px;
+    }
+
+    /* ── Nav ───────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(250,247,242,0.97); backdrop-filter: blur(6px);
+      border-bottom: 1px solid rgba(0,0,0,0.07); transition: box-shadow 0.3s;
+    }
+    nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.1); }
+    .nav-inner {
+      display: flex; align-items: center;
+      justify-content: space-between; height: 90px;
+    }
+    .nav-logo img { height: 70px; width: auto; }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--brown-dark); position: relative;
+      padding-bottom: 4px; transition: color 0.2s;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: 0; left: 0;
+      width: 0; height: 2px; background: var(--green-dark); transition: width 0.25s;
+    }
+    .nav-links a:hover { color: var(--green-dark); }
+    .nav-links a:hover::after { width: 100%; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--brown-dark); border-radius: 2px; }
+    .mobile-menu { display: none; background: var(--cream); border-top: 1px solid var(--tan); padding: 20px 24px 28px; }
+    .mobile-menu.open { display: block; }
+    .mobile-menu a {
+      display: block; padding: 12px 0;
+      font-size: 0.88rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--brown-dark); border-bottom: 1px solid var(--tan);
+    }
+
+    /* ── Hero ──────────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      background:
+        linear-gradient(to bottom right, rgba(20,15,5,0.62) 0%, rgba(25,40,10,0.48) 100%),
+        url('https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1800&q=85') center/cover no-repeat;
+      display: flex; align-items: center; justify-content: center; padding-top: 90px;
+    }
+    .hero-content { color: var(--white); max-width: 700px; text-align: center; margin: 0 auto; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--brown-light); margin-bottom: 22px;
+    }
+    .hero-eyebrow::before, .hero-eyebrow::after { content: ''; display: block; width: 28px; height: 1px; background: var(--brown-light); }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 700; line-height: 1.08; margin-bottom: 24px;
+    }
+    .hero h1 em { font-style: italic; color: var(--brown-light); }
+    .hero-sub {
+      font-size: 1.1rem; font-weight: 300;
+      color: rgba(255,255,255,0.85);
+      max-width: 520px; margin: 0 auto 40px; line-height: 1.8;
+      text-align: center;
+    }
+    .hero-btns { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+    .hero-trust {
+      margin-top: 56px; display: flex; align-items: center;
+      gap: 36px; flex-wrap: wrap;
+    }
+    .hero-trust-item {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: rgba(255,255,255,0.75);
+    }
+    .hero-trust-icon { font-size: 1.2rem; }
+
+    /* ── Strip ─────────────────────────────────────────────── */
+    .strip {
+      background: var(--green-dark); color: var(--white);
+      padding: 17px 0; text-align: center;
+      font-size: 0.76rem; font-weight: 700;
+      letter-spacing: 0.22em; text-transform: uppercase;
+    }
+    .strip .sep { color: var(--brown-light); margin: 0 20px; }
+
+    /* ── Products ──────────────────────────────────────────── */
+    .products { padding: 110px 0; background: var(--cream); }
+    .products-head { text-align: center; margin-bottom: 64px; }
+    .products-head .section-sub { margin: 0 auto; }
+    .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+
+    .product-card {
+      background: var(--white); border-radius: 8px;
+      overflow: hidden; box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex; flex-direction: column;
+    }
+    .product-card:hover { transform: translateY(-8px); box-shadow: 0 24px 56px rgba(0,0,0,0.14); }
+    .product-card-img {
+      width: 100%; height: 270px;
+      object-fit: cover; object-position: center;
+    }
+    .product-card-body { padding: 28px; flex: 1; display: flex; flex-direction: column; }
+    .product-card-tag { margin-bottom: 14px; }
+    .product-card-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem; font-weight: 700;
+      color: var(--brown-dark); margin-bottom: 12px;
+    }
+    .product-card-desc { font-size: 0.92rem; color: var(--brown-mid); line-height: 1.75; flex: 1; }
+    .product-card-features {
+      margin: 18px 0; list-style: none;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .product-card-features li {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 0.85rem; color: var(--brown-mid);
+    }
+    .product-card-features li::before { content: '✓'; color: var(--green-dark); font-weight: 700; font-size: 0.9rem; }
+    .product-card-footer {
+      display: flex; align-items: center;
+      justify-content: space-between; margin-top: 20px;
+      padding-top: 20px; border-top: 1px solid var(--tan);
+    }
+    .product-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem; font-weight: 700; color: var(--brown-dark);
+    }
+    .product-price span { font-family: 'Lato', sans-serif; font-size: 0.72rem; font-weight: 400; color: var(--brown-mid); display: block; }
+
+    /* ── Why Cedar ─────────────────────────────────────────── */
+    .why-cedar { padding: 110px 0; background: var(--tan); }
+    .why-cedar-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .why-cedar-image {
+      position: relative; border-radius: 8px; overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.18);
+    }
+    .why-cedar-image img { width: 100%; height: 520px; object-fit: cover; }
+    .why-cedar-badge {
+      position: absolute; bottom: 24px; left: 24px;
+      background: var(--green-dark); color: var(--white);
+      border-radius: 6px; padding: 16px 22px;
+      font-family: 'Playfair Display', serif;
+    }
+    .why-cedar-badge-num { font-size: 2rem; font-weight: 700; }
+    .why-cedar-badge-label { font-size: 0.75rem; font-weight: 400; opacity: 0.85; }
+    .why-list { display: flex; flex-direction: column; gap: 28px; margin-top: 36px; }
+    .why-item { display: flex; gap: 20px; align-items: flex-start; }
+    .why-icon {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: var(--green-light); display: flex;
+      align-items: center; justify-content: center;
+      font-size: 1.4rem; flex-shrink: 0;
+    }
+    .why-item-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem; font-weight: 600;
+      color: var(--brown-dark); margin-bottom: 6px;
+    }
+    .why-item-desc { font-size: 0.9rem; color: var(--brown-mid); line-height: 1.7; }
+
+    /* ── Custom Order ──────────────────────────────────────── */
+    .custom { padding: 110px 0; background: var(--cream); }
+    .custom-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 80px; align-items: center; }
+    .custom-steps { display: flex; flex-direction: column; gap: 32px; margin-top: 40px; }
+    .custom-step { display: flex; gap: 20px; align-items: flex-start; }
+    .step-num {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--green-dark); color: var(--white);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif; font-size: 1.1rem;
+      font-weight: 700; flex-shrink: 0;
+    }
+    .step-title {
+      font-weight: 700; color: var(--brown-dark);
+      margin-bottom: 4px; font-size: 0.95rem;
+      letter-spacing: 0.04em; text-transform: uppercase;
+    }
+    .step-desc { font-size: 0.88rem; color: var(--brown-mid); line-height: 1.7; }
+    .custom-img-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .custom-img-grid img { width: 100%; border-radius: 6px; object-fit: cover; }
+    .custom-img-grid img:first-child { grid-column: 1 / -1; height: 240px; }
+    .custom-img-grid img:not(:first-child) { height: 170px; }
+
+    /* ── Care Tips ─────────────────────────────────────────── */
+    .care { padding: 110px 0; background: var(--green-dark); }
+    .care-head { text-align: center; margin-bottom: 60px; }
+    .care-head .section-label { color: var(--brown-light); }
+    .care-head .section-title { color: var(--white); }
+    .care-head .section-sub { color: rgba(255,255,255,0.7); margin: 0 auto; }
+    .care-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    .care-card {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 8px; padding: 32px 24px;
+      text-align: center; transition: background 0.3s;
+    }
+    .care-card:hover { background: rgba(255,255,255,0.13); }
+    .care-season {
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--brown-light); margin-bottom: 16px;
+    }
+    .care-icon { font-size: 2rem; margin-bottom: 14px; }
+    .care-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; color: var(--white);
+      font-weight: 600; margin-bottom: 10px;
+    }
+    .care-desc { font-size: 0.85rem; color: rgba(255,255,255,0.65); line-height: 1.75; }
+
+    /* ── CTA Banner ────────────────────────────────────────── */
+    .cta {
+      background:
+        linear-gradient(to right, rgba(20,12,4,0.85), rgba(25,45,12,0.72)),
+        url('https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=1400&q=80') center/cover no-repeat;
+      padding: 110px 0; text-align: center; color: var(--white);
+    }
+    .cta h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700; margin-bottom: 16px;
+    }
+    .cta p {
+      font-size: 1.05rem; font-weight: 300;
+      color: rgba(255,255,255,0.8);
+      max-width: 520px; margin: 0 auto 36px;
+    }
+    .cta-btns { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+
+    /* ── Contact ───────────────────────────────────────────── */
+    .contact { padding: 110px 0; background: var(--tan); }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      justify-items: center;
+      gap: 80px;
+      align-items: start;
+    }
+    .contact-grid > div {
+      width: 100%;
+      max-width: 720px;
+    }
+    .contact-info-item {
+      display: flex; align-items: flex-start;
+      gap: 16px; margin-bottom: 28px;
+    }
+    .contact-icon {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--green-light); display: flex;
+      align-items: center; justify-content: center;
+      font-size: 1.2rem; flex-shrink: 0;
+    }
+    .contact-info-label {
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--green-dark); margin-bottom: 4px;
+    }
+    .contact-info-val { font-size: 0.93rem; color: var(--brown-mid); }
+    .contact-form, .order-form { background: var(--cream); border-radius: 10px; padding: 44px; box-shadow: 0 4px 32px rgba(0,0,0,0.08); }
+    .order { padding: 110px 0; background: var(--cream); }
+    .order .section-title { color: var(--brown-dark); }
+    .order .section-sub { color: var(--brown-mid); max-width: 680px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px; }
+    .form-group label {
+      font-size: 0.73rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--brown-mid);
+    }
+    .form-group input, .form-group textarea, .form-group select {
+      padding: 12px 16px; border: 1.5px solid rgba(0,0,0,0.13);
+      border-radius: 5px; font-family: 'Lato', sans-serif;
+      font-size: 0.93rem; color: var(--brown-dark);
+      background: var(--white); outline: none; transition: border-color 0.2s;
+    }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--green-dark); }
+    .form-group textarea { resize: vertical; min-height: 130px; }
+    .form-sizes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 18px; }
+    .size-chip {
+      border: 1.5px solid rgba(0,0,0,0.13); border-radius: 5px;
+      padding: 10px; text-align: center; cursor: pointer;
+      background: var(--white); transition: all 0.2s;
+    }
+    .size-chip.active, .size-chip:hover { border-color: var(--green-dark); background: var(--green-light); }
+    .size-chip-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green-dark); }
+    .size-chip-sub { font-size: 0.78rem; color: var(--brown-mid); margin-top: 2px; }
+    .form-submit { width: 100%; padding: 16px; font-size: 0.84rem; }
+
+    /* ── Footer ────────────────────────────────────────────── */
+    .footer-green-strip { height: 5px; background: var(--green-dark); }
+    footer { background: var(--brown-dark); color: rgba(255,255,255,0.6); padding: 64px 0 32px; }
+    .footer-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    .footer-logo img { height: 100px; width: auto; border-radius: 8px; }
+    .footer-tagline { font-size: 0.87rem; color: rgba(255,255,255,0.45); line-height: 1.8; }
+    .footer-heading {
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--white); margin-bottom: 20px;
+    }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .footer-links a { font-size: 0.87rem; color: rgba(255,255,255,0.5); transition: color 0.2s; }
+    .footer-links a:hover { color: var(--white); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 28px; display: flex;
+      justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .footer-bottom p { font-size: 0.78rem; color: rgba(255,255,255,0.35); }
+
+    /* ── Responsive ────────────────────────────────────────── */
+    @media (max-width: 1000px) {
+      .why-cedar-grid, .custom-grid, .contact-grid { grid-template-columns: 1fr; gap: 52px; }
+      .care-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 680px) {
+      .nav-links, nav > .container > .btn { display: none; }
+      .hamburger { display: flex; }
+      .products-grid { grid-template-columns: 1fr; }
+      .care-grid { grid-template-columns: 1fr; }
+      .form-row, .form-sizes { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .cta-btns { flex-direction: column; align-items: center; }
+      .hero-trust { gap: 18px; }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ═══ NAV ═════════════════════════════════════════════════ -->
+<nav id="navbar">
+  <div class="container nav-inner">
+    <a class="nav-logo" href="#home">
+      <img src="Assets/cedar-spruce-logo-trans-bg.png" alt="Cedar & Spruce Handcrafted Woodworks" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#products">Our Products</a></li>
+      <li><a href="#why-cedar">Why Cedar</a></li>
+      <li><a href="#care">Care Guide</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#order" class="btn btn-primary" style="font-size:0.78rem; padding:11px 26px;">Place Your Order</a>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="#home" class="mobile-link">Home</a>
+    <a href="#products" class="mobile-link">Our Products</a>
+    <a href="#why-cedar" class="mobile-link">Why Cedar</a>
+    <a href="#care" class="mobile-link">Care Guide</a>
+    <a href="#contact" class="mobile-link">Contact</a>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═════════════════════════════════════════════════ -->
+<section class="hero" id="home">
+  <div class="container">
+    <div class="hero-content">
+      <h1>
+        Grow More<br />with <em>Rustic Cedar</em><br />Built to Last
+      </h1>
+      <p class="hero-sub">
+        Planter boxes, window boxes, and raised garden beds. Handcrafted from naturally rot-resistant cedar. Chemical-free and long lasting.
+      </p>
+      <div class="hero-btns">
+        <a href="#products" class="btn btn-primary">Shop Our Products</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STRIP ════════════════════════════════════════════════ -->
+<div class="strip">
+  Rustic<span class="sep">✦</span>
+  Handcrafted<span class="sep">✦</span>
+  Inspired by Nature<span class="sep">
+</div>
+
+<!-- ═══ PRODUCTS ═════════════════════════════════════════════ -->
+<section class="products" id="products">
+  <div class="container">
+    <div class="products-head">
+      <span class="section-label">What We Make</span>
+      <h2 class="section-title">Three Ways to Grow Something Beautiful</h2>
+      <p class="section-sub">Every box is hand-built from rustic Western Red Cedar boards.</p>
+    </div>
+    <div class="products-grid">
+
+      <!-- Product 1: Planter Boxes -->
+      <div class="product-card">
+        <img class="product-card-img"
+          src="Assets/Planter-Box.jpg"
+          alt="Rustic cedar planter boxes" />
+        <div class="product-card-body">
+          <div class="product-card-name">Cedar Planter Boxes</div>
+          <p class="product-card-desc">
+            Perfect for herbs, flowers, vegetables, or succulents indoors or out. Our planter boxes are built from solid cedar with sturdy corner joinery and drainage slats in the base.
+          </p>
+          <ul class="product-card-features">
+            <li>Slats for proper drainage</li>
+            <li>Indoor &amp; outdoor safe</li>
+            <li>Small through XL sizes</li>
+            <li>Natural finish, lightly sanded</li>
+          </ul>
+          <div class="product-card-footer">
+            <div class="product-price">
+              Starting at $45
+            </div>
+            <a href="#order" class="btn btn-outline-green" style="padding:10px 20px; font-size:0.75rem;">Order</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 2: Window Boxes -->
+      <div class="product-card">
+        <img class="product-card-img"
+          src="Assets/Window-Box.jpg"
+          alt="Cedar window boxes on a house exterior" />
+        <div class="product-card-body">
+          <div class="product-card-name">Cedar Window Boxes</div>
+          <p class="product-card-desc">
+            Add charm to any window, porch railing, or fence line. Our window boxes are built wide and deep enough to support healthy root growth and drainage slats in the base.
+          </p>
+          <ul class="product-card-features">
+            <li>Built to standard window sizes</li>
+            <li>Deep-profile for healthy roots</li>
+            <li>Mounting-ready design</li>
+            <li>Rustic farmhouse aesthetic</li>
+          </ul>
+          <div class="product-card-footer">
+            <div class="product-price">
+              Starting at $65
+              <!-- <span>Cut to your window's width</span> -->
+            </div>
+            <a href="#order" class="btn btn-outline-green" style="padding:10px 20px; font-size:0.75rem;">Order</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 3: Raised Garden Beds -->
+      <div class="product-card">
+        <img class="product-card-img"
+          src="Assets/Raised-Bed.jpg"
+          alt="Cedar raised garden bed in a backyard" />
+        <div class="product-card-body">
+          <div class="product-card-name">Raised Garden Beds</div>
+          <p class="product-card-desc">
+            Transform any backyard, patio, or deck into a thriving food garden. Built tall enough to eliminate bending, our raised beds give you better drainage, better soil control, and a longer growing season.
+          </p>
+          <ul class="product-card-features">
+            <li>Available in standard &amp; tall heights</li>
+            <li>Patio, deck &amp; yard-friendly</li>
+            <li>Better drainage &amp; soil control</li>
+            <li>Grow veggies, herbs &amp; flowers</li>
+          </ul>
+          <div class="product-card-footer">
+            <div class="product-price">
+              Starting at $185
+              <!-- <span>Any dimension you need</span> -->
+            </div>
+            <a href="#order" class="btn btn-outline-green" style="padding:10px 20px; font-size:0.75rem;">Order</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ WHY CEDAR ════════════════════════════════════════════ -->
+<section class="why-cedar" id="why-cedar">
+  <div class="container">
+    <div class="why-cedar-grid">
+
+      <div class="why-cedar-image">
+        <img src="Assets/cedar-sprig.jpg" alt="Cedar wood grain close-up" />
+      </div>
+
+      <div>
+        <span class="section-label">Why We Use Cedar</span>
+        <h2 class="section-title">Not All Wood Is<br/>Created Equal</h2>
+        <p class="section-sub">
+          Cedar isn't just beautiful, it's the smartest choice for outdoor gardening. Here's why every Cedar & Spruce box starts and ends with real cedar.
+        </p>
+        <div class="why-list">
+          <div class="why-item">
+            <div class="why-icon">🌿</div>
+            <div>
+              <div class="why-item-title">Naturally Rot-Resistant</div>
+              <p class="why-item-desc">Cedar contains natural oils and tannins that resist fungi, moisture, and decay. No chemical treatments needed. Untreated pine may rot in 2–4 years; cedar thrives for 10–15.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-icon">🥕</div>
+            <div>
+              <div class="why-item-title">100% Food-Safe</div>
+              <p class="why-item-desc">No pressure treatment, no chemical preservatives. Cedar is completely safe for growing vegetables, herbs, and edible plants, ideal for families with kids and pets.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-icon">🐛</div>
+            <div>
+              <div class="why-item-title">Natural Insect Repellent</div>
+              <p class="why-item-desc">Cedar's natural aroma deters termites, carpenter ants, and wood-boring insects, so your boxes stay structurally sound season after season.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="why-icon">⚖️</div>
+            <div>
+              <div class="why-item-title">Lightweight & Workable</div>
+              <p class="why-item-desc">Cedar is light compared to hardwoods or pressure-treated lumber, making it easy to move your planters before filling with soil.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CARE GUIDE ════════════════════════════════════════════ -->
+<section class="care" id="care">
+  <div class="container">
+    <div class="care-head">
+      <span class="section-label">Cedar Care Guide</span>
+      <h2 class="section-title">Keep Your Box Thriving Year-Round</h2>
+      <p class="section-sub">Cedar is naturally hardy. A little seasonal attention goes a long way.</p>
+    </div>
+    <div class="care-grid">
+      <div class="care-card">
+        <div class="care-season">🌱 Spring</div>
+        <div class="care-icon">🚿</div>
+        <div class="care-title">Clean &amp; Inspect</div>
+        <p class="care-desc">Rinse out last season's soil and debris. Check joints for any movement. Apply a coat of non-toxic wood sealant to refresh moisture protection before the wet season begins.</p>
+      </div>
+      <div class="care-card">
+        <div class="care-season">☀️ Summer</div>
+        <div class="care-icon">💧</div>
+        <div class="care-title">Water &amp; Monitor</div>
+        <p class="care-desc">Ensure drainage holes remain clear so water doesn't pool at the base. Cedar handles summer heat well. Watch for soil drying out faster in elevated planters and window boxes.</p>
+      </div>
+      <div class="care-card">
+        <div class="care-season">🍂 Fall</div>
+        <div class="care-icon">🍃</div>
+        <div class="care-title">Prep for the Cold</div>
+        <p class="care-desc">Clear out finished plants and loosen compacted soil. For window boxes, inspect mounting hardware. Cedar will naturally silver-grey outdoors. This is beautiful and normal, not damage.</p>
+      </div>
+      <div class="care-card">
+        <div class="care-season">❄️ Winter</div>
+        <div class="care-icon">🏠</div>
+        <div class="care-title">Store or Leave It</div>
+        <p class="care-desc">Smaller planter boxes can be stored indoors to extend their lifespan. Raised beds and larger window boxes can safely stay outside. Cedar handles freeze-thaw cycles well.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTACT ═══════════════════════════════════════════════ -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="contact-grid">
+
+      <div>
+        <span class="section-label">Get in Touch</span>
+        <h2 class="section-title">Contact Cedar & Spruce</h2>
+        <p class="section-sub" style="margin-bottom: 40px;">
+          Have a question about our products? Reach out and we’ll get back to you!
+        </p>
+        <div class="contact-info-item">
+          <div class="contact-icon">📧</div>
+          <div>
+            <div class="contact-info-label">Email</div>
+            <div class="contact-info-val">CedarAndSpruce@Gmail.com</div>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-icon">🌐</div>
+          <div>
+            <div class="contact-info-label">Website</div>
+            <div class="contact-info-val">CedarAndSpruce.com</div>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-icon">📍</div>
+          <div>
+            <div class="contact-info-label">Location</div>
+            <div class="contact-info-val">Webster, NY, local pickup</div>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-icon">⏱️</div>
+          <div>
+            <div class="contact-info-label">Lead Time</div>
+            <div class="contact-info-val">Most orders ready within 1 week of confirmation</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA BANNER ════════════════════════════════════════════ -->
+<section class="cta">
+  <div class="container">
+    <h2>Ready to grow something great?</h2>
+    <p>Whether it's herbs on your windowsill or a full raised bed for your backyard. Let's build it together.</p>
+    <div class="cta-btns">
+      <a href="#order" class="btn btn-primary">Place Your Order</a>
+      <a href="#products" class="btn btn-outline-white">Browse Products</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ORDER FORM ════════════════════════════════════════════ -->
+<section class="order" id="order">
+  <div class="container">
+    <div class="order-header" style="max-width: 680px; margin-bottom: 36px;">
+      <span class="section-label">Order Request</span>
+      <h2 class="section-title">Place Your Order</h2>
+      <p class="section-sub">
+        Share your project details below and we’ll follow up with a quote, timeline, and next steps.
+      </p>
+    </div>
+    <div class="order-form">
+      <form id="order-form">
+
+          <!-- ── Contact Info ─────────────────────── -->
+          <p style="font-family:'Playfair Display',serif; font-size:1.05rem; font-weight:600; color:var(--brown-dark); margin-bottom:20px;">
+            1. Your Contact Info
+          </p>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fname">First Name *</label>
+              <input type="text" id="fname" placeholder="Jane" required />
+            </div>
+            <div class="form-group">
+              <label for="lname">Last Name *</label>
+              <input type="text" id="lname" placeholder="Smith" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">Email Address *</label>
+              <input type="email" id="email" placeholder="jane@email.com" required />
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" placeholder="(585) 555-0100" />
+            </div>
+          </div>
+
+          <hr style="border:none; border-top:1px solid var(--tan); margin:8px 0 24px;" />
+
+          <!-- ── Product ─────────────────────────── -->
+          <p style="font-family:'Playfair Display',serif; font-size:1.05rem; font-weight:600; color:var(--brown-dark); margin-bottom:20px;">
+            2. What Would You Like?
+          </p>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="product">Product *</label>
+              <select id="product" required onchange="toggleDrainage()">
+                <option value="">Choose a product…</option>
+                <option value="planter">Cedar Planter Box</option>
+                <option value="window">Cedar Window Box</option>
+                <option value="raised">Raised Garden Bed</option>
+                <option value="multiple">Multiple / Bundle</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="qty">Quantity * (Maximum 10)</label>
+              <input type="number" id="qty" min="1" max="10" placeholder="1" required />
+            </div>
+          </div>
+
+          <!-- ── Size Picker ─────────────────────── -->
+          <div class="form-group" id="size-picker-group" style="display:none;">
+            <label>Select a Size *</label>
+            <div id="size-cards" style="display:grid; grid-template-columns: repeat(2,1fr); gap:12px; margin-top:6px;"></div>
+            <input type="hidden" id="selected-size" />
+          </div>
+
+          <!-- ── Notes ───────────────────────────── -->
+          <div class="form-group">
+            <label for="message">Additional Notes</label>
+            <textarea id="message"></textarea>
+          </div>
+
+          <!-- ── How did you hear ─────────────────── -->
+          <div class="form-group">
+            <label for="referral">How did you hear about us?</label>
+            <select id="referral">
+              <option value="">Select…</option>
+              <option>Facebook / Instagram</option>
+              <option>Google Search</option>
+              <option>Word of Mouth / Friend</option>
+              <option>Local Market or Event</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn btn-primary form-submit">Submit Order Request →</button>
+
+          <p style="font-size:0.75rem; color:var(--brown-mid); text-align:center; margin-top:14px;">
+            No payment required as part of this form. We'll send a quote to confirm. Payment will be made in person - cash or Venmo accepted.
+          </p>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ════════════════════════════════════════════════ -->
+<div class="footer-green-strip"></div>
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-logo">
+        <img src="Assets/cedar-spruce-logo-white-bg.png" alt="Cedar & Spruce" />
+      </div>
+      <div>
+        <div class="footer-heading">Products</div>
+        <ul class="footer-links">
+          <li><a href="#products">Cedar Planter Boxes</a></li>
+          <li><a href="#products">Window Boxes</a></li>
+          <li><a href="#products">Raised Garden Beds</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Learn</div>
+        <ul class="footer-links">
+          <li><a href="#why-cedar">Why Cedar Wood?</a></li>
+          <li><a href="#care">Care Guide</a></li>
+          <li><a href="#order">Order Request</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Contact</div>
+        <ul class="footer-links">
+          <li><a href="mailto:cedarandspruce@gmail.com">cedarandspruce@gmail.com</a></li>
+          <li><a href="https://cedarandspruce.com">cedarandspruce.com</a></li>
+          <li><a href="https://maps.app.goo.gl/BvEGguCsDbTdNCJA9" target="_blank">Webster, NY</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Cedar &amp; Spruce Handcrafted Woodworks. All rights reserved.</p>
+      <p>Rustic · Handcrafted · Inspired by Nature</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══ SCRIPTS ═══════════════════════════════════════════════ -->
+<script>
+// ── Sticky nav shadow ──────────────────────────────────
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 20);
+});
+
+// ── Mobile menu ────────────────────────────────────────
+document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('mobile-menu').classList.toggle('open');
+});
+document.querySelectorAll('.mobile-link').forEach(l =>
+  l.addEventListener('click', () =>
+    document.getElementById('mobile-menu').classList.remove('open')
+  )
+);
+
+// ── Pre-determined sizes per product ───────────────────
+const SIZES = {
+  planter: [
+    { label: 'Small',  dims: '12" × 12" × 10"', note: 'Herbs, succulents, small flowers' },
+    { label: 'Medium', dims: '18" × 12" × 10"', note: 'Peppers, lettuce, mixed herbs' },
+    { label: 'Large',  dims: '24" × 12" × 10"', note: 'Tomatoes, kale, larger plants' },
+    { label: 'XL',     dims: '36" × 12" × 10"', note: 'Multiple plants, full herb garden' },
+  ],
+  window: [
+    { label: '2 ft', dims: '24" × 8" × 8"', note: 'Fits smaller windows & railings' },
+    { label: '2.5 ft', dims: '30" × 8" × 8"', note: 'Most popular window size' },
+    { label: '3 ft', dims: '36" × 8" × 8"', note: 'Standard double window width' },
+    { label: '4 ft', dims: '48" × 8" × 8"', note: 'Wide windows & porch railings' },
+  ],
+  raised: [
+    { label: 'Starter',  dims: "2' × 4' × 10\"", note: 'Great for small yards or patios' },
+    { label: 'Square',   dims: "4' × 4' × 10\"", note: 'Compact & easy to reach all sides' },
+    { label: 'Standard', dims: "4' × 8' × 10\"", note: 'Most popular raised bed size' },
+    { label: 'Tall',     dims: "4' × 8' × 18\"", note: 'No bending, great for all ages' },
+  ],
+  multiple: [
+    { label: 'Starter Bundle',  dims: '2 Planter Boxes + 1 Window Box', note: 'Great intro set' },
+    { label: 'Garden Bundle',   dims: '1 Raised Bed + 2 Planter Boxes', note: 'Full backyard setup' },
+    { label: 'Window Bundle',   dims: '3 Window Boxes (30" each)', note: 'Match all your windows' },
+    { label: 'Mix & Match',     dims: 'Describe below', note: 'Tell us what you need!' },
+  ],
+};
+
+// ── Build size cards dynamically ───────────────────────
+function buildSizeCards(product) {
+  const container = document.getElementById('size-cards');
+  const group = document.getElementById('size-picker-group');
+  const hiddenInput = document.getElementById('selected-size');
+
+  container.innerHTML = '';
+  hiddenInput.value = '';
+
+  if (!product || !SIZES[product]) {
+    group.style.display = 'none';
+    return;
+  }
+
+  group.style.display = 'block';
+
+  SIZES[product].forEach(size => {
+    const card = document.createElement('div');
+    card.style.cssText = `
+      border: 1.5px solid rgba(0,0,0,0.13);
+      border-radius: 6px;
+      padding: 14px 16px;
+      cursor: pointer;
+      background: var(--white);
+      transition: all 0.2s;
+    `;
+    card.innerHTML = `
+      <div style="font-family:'Playfair Display',serif; font-size:1rem; font-weight:600; color:var(--brown-dark); margin-bottom:4px;">${size.label}</div>
+      <div style="font-size:0.82rem; font-weight:700; color:var(--green-dark); margin-bottom:4px;">${size.dims}</div>
+      <div style="font-size:0.78rem; color:var(--brown-mid);">${size.note}</div>
+    `;
+    card.addEventListener('click', () => {
+      // Deselect all
+      container.querySelectorAll('div').forEach(c => {
+        c.style.borderColor = 'rgba(0,0,0,0.13)';
+        c.style.background = 'var(--white)';
+      });
+      // Select this one
+      card.style.borderColor = 'var(--green-dark)';
+      card.style.background = 'var(--green-light)';
+      hiddenInput.value = `${size.label} ${size.dims}`;
+    });
+    container.appendChild(card);
+  });
+}
+
+// ── Product dropdown change handler ────────────────────
+document.getElementById('product').addEventListener('change', function () {
+  buildSizeCards(this.value);
+
+  // Show/hide drainage for raised beds
+  const drainageGroup = document.getElementById('drainage-group');
+  if (drainageGroup) {
+    drainageGroup.style.display = this.value === 'raised' ? 'none' : 'block';
+  }
+});
+
+// ── Form submit ────────────────────────────────────────
+document.getElementById('order-form').addEventListener('submit', e => {
+  e.preventDefault();
+
+  // Validate a size was picked if product was selected
+  const product = document.getElementById('product').value;
+  const size = document.getElementById('selected-size').value;
+  if (product && !size) {
+    alert('Please select a size for your order.');
+    return;
+  }
+
+  const btn = e.target.querySelector('.form-submit');
+  btn.textContent = '✓ Order Request Sent!';
+  btn.style.background = 'var(--green-mid)';
+  setTimeout(() => {
+    btn.textContent = 'Submit Order Request →';
+    btn.style.background = '';
+    e.target.reset();
+    buildSizeCards(''); // clear size cards
+  }, 3000);
+});
+
+</script>
+
+</body>
+</html>
