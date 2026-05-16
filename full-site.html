@@ -396,6 +396,39 @@
       .cta-btns { flex-direction: column; align-items: center; }
       .hero-trust { gap: 18px; }
     }
+
+    .scroll-top-btn {
+      position: fixed;
+      right: 20px;
+      bottom: 24px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--green-dark);
+      color: var(--white);
+      border: none;
+      box-shadow: 0 18px 30px rgba(0,0,0,0.18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+      z-index: 200;
+    }
+
+    .scroll-top-btn.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .scroll-top-btn:hover {
+      transform: translateY(-4px);
+      background: var(--green-mid);
+    }
   </style>
 </head>
 
@@ -680,8 +713,8 @@
 <!-- ═══ CTA BANNER ════════════════════════════════════════════ -->
 <section class="cta">
   <div class="container">
-    <h2>Ready to grow something great?</h2>
-    <p>Whether it's herbs on your windowsill or a full raised bed for your backyard. Let's build it together.</p>
+    <h2>Are you ready to grow something great?</h2>
+    <p>Whether it's herbs on your windowsill or a full raised bed for your backyard. Let's build it together!</p>
     <div class="cta-btns">
       <a href="#order" class="btn btn-primary">Place Your Order</a>
       <a href="#products" class="btn btn-outline-white">Browse Products</a>
@@ -829,6 +862,8 @@
   </div>
 </footer>
 
+<button id="scrollTopBtn" class="scroll-top-btn" aria-label="Scroll to top">↑</button>
+
 <!-- ═══ SCRIPTS ═══════════════════════════════════════════════ -->
 <script>
 // ── Sticky nav shadow ──────────────────────────────────
@@ -846,6 +881,19 @@ document.querySelectorAll('.mobile-link').forEach(l =>
     document.getElementById('mobile-menu').classList.remove('open')
   )
 );
+
+const scrollTopBtn = document.getElementById('scrollTopBtn');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 400) {
+    scrollTopBtn.classList.add('visible');
+  } else {
+    scrollTopBtn.classList.remove('visible');
+  }
+});
+
+scrollTopBtn.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
 
 // ── Pre-determined sizes per product ───────────────────
 const SIZES = {
