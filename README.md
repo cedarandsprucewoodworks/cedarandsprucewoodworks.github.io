@@ -23,4 +23,4 @@ Cedar & Spruce focuses on:
 
 The full preserved site emphasizes cedar's natural benefits, builder care tips, and custom order process. It is intended as an informational brochure-style website for customers interested in cedar garden products and custom woodworking services.
 
-The original site template was AI Agent generated, but has since had significant human input and creativity applited to it.
+The original site template was AI Agent generated, but has since had significant human input and creativity applied to it since.
