@@ -700,7 +700,9 @@
       </p>
     </div>
     <div class="order-form">
-      <form id="order-form">
+      <form id="order-form" action="https://formspree.io/f/mykornwb" method="POST">
+        <input type="hidden" name="_subject" value="New Order Request from Cedar & Spruce" />
+        <input type="text" name="_gotcha" style="display:none" />
 
           <!-- ── Contact Info ─────────────────────── -->
           <p style="font-family:'Playfair Display',serif; font-size:1.05rem; font-weight:600; color:var(--brown-dark); margin-bottom:20px;">
@@ -709,21 +711,21 @@
           <div class="form-row">
             <div class="form-group">
               <label for="fname">First Name *</label>
-              <input type="text" id="fname" placeholder="Jane" required />
+              <input type="text" id="fname" name="first_name" placeholder="Jane" required />
             </div>
             <div class="form-group">
               <label for="lname">Last Name *</label>
-              <input type="text" id="lname" placeholder="Smith" required />
+              <input type="text" id="lname" name="last_name" placeholder="Smith" required />
             </div>
           </div>
           <div class="form-row">
             <div class="form-group">
               <label for="email">Email Address *</label>
-              <input type="email" id="email" placeholder="jane@email.com" required />
+              <input type="email" id="email" name="email" placeholder="jane@email.com" required />
             </div>
             <div class="form-group">
               <label for="phone">Phone Number</label>
-              <input type="tel" id="phone" placeholder="(585) 555-0100" />
+              <input type="tel" id="phone" name="phone" placeholder="(585) 555-0100" />
             </div>
           </div>
 
@@ -736,7 +738,7 @@
           <div class="form-row">
             <div class="form-group">
               <label for="product">Product *</label>
-              <select id="product" required onchange="toggleDrainage()">
+              <select id="product" name="product" required onchange="toggleDrainage()">
                 <option value="">Choose a product…</option>
                 <option value="planter">Cedar Planter Box</option>
                 <option value="window">Cedar Window Box</option>
@@ -746,7 +748,7 @@
             </div>
             <div class="form-group">
               <label for="qty">Quantity * (Maximum 10)</label>
-              <input type="number" id="qty" min="1" max="10" placeholder="1" required />
+              <input type="number" id="qty" name="quantity" min="1" max="10" placeholder="1" required />
             </div>
           </div>
 
@@ -754,19 +756,19 @@
           <div class="form-group" id="size-picker-group" style="display:none;">
             <label>Select a Size *</label>
             <div id="size-cards" style="display:grid; grid-template-columns: repeat(2,1fr); gap:12px; margin-top:6px;"></div>
-            <input type="hidden" id="selected-size" />
+            <input type="hidden" id="selected-size" name="size" />
           </div>
 
           <!-- ── Notes ───────────────────────────── -->
           <div class="form-group">
             <label for="message">Additional Notes</label>
-            <textarea id="message"></textarea>
+            <textarea id="message" name="message"></textarea>
           </div>
 
           <!-- ── How did you hear ─────────────────── -->
           <div class="form-group">
             <label for="referral">How did you hear about us?</label>
-            <select id="referral">
+            <select id="referral" name="referral">
               <option value="">Select…</option>
               <option>Facebook / Instagram</option>
               <option>Google Search</option>
@@ -930,6 +932,37 @@ document.getElementById('product').addEventListener('change', function () {
   }
 });
 
+// ── Reset order form helper ────────────────────────────
+function resetOrderForm() {
+  const form = document.getElementById('order-form');
+  if (!form) return;
+
+  form.reset();
+  buildSizeCards('');
+
+  const btn = form.querySelector('.form-submit');
+  if (btn) {
+    btn.textContent = 'Submit Order Request →';
+    btn.disabled = false;
+  }
+
+  if (window.grecaptcha && typeof grecaptcha.reset === 'function') {
+    try {
+      grecaptcha.reset();
+    } catch (err) {
+      // ignore if captcha reset is unavailable
+    }
+  }
+}
+
+window.addEventListener('pageshow', event => {
+  const navigationEntries = performance.getEntriesByType('navigation');
+  const navType = navigationEntries.length ? navigationEntries[0].type : null;
+  if (event.persisted || navType === 'back_forward') {
+    resetOrderForm();
+  }
+});
+
 // ── Form submit ────────────────────────────────────────
 document.getElementById('order-form').addEventListener('submit', e => {
   e.preventDefault();
@@ -943,14 +976,11 @@ document.getElementById('order-form').addEventListener('submit', e => {
   }
 
   const btn = e.target.querySelector('.form-submit');
-  btn.textContent = '✓ Order Request Sent!';
-  btn.style.background = 'var(--green-mid)';
-  setTimeout(() => {
-    btn.textContent = 'Submit Order Request →';
-    btn.style.background = '';
-    e.target.reset();
-    buildSizeCards(''); // clear size cards
-  }, 3000);
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+
+  // Submit the form to Formspree (regular POST)
+  e.target.submit();
 });
 
 </script>
